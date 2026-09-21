@@ -1,16 +1,33 @@
 # Shubhankar Gupta
 
-**AI / LLM engineer — retrieval-augmented generation, Python, and shipping things that stay up.**
+**AI engineer — LLM applications, retrieval (RAG), agent tooling (MCP), and production systems that stay up.**
 
-Delhi, India (UTC+5:30) · open to remote work worldwide · [solquara.com](https://solquara.com) · shubhankar15august@gmail.com
+Delhi, India (UTC+5:30) · open to remote work worldwide · [solquara.com](https://solquara.com) · shubhankar15august@gmail.com · [LinkedIn](https://www.linkedin.com/in/shubhankar-gupta-a73aa21a0)
 
-I build RAG systems end to end — chunking, embeddings, hybrid retrieval,
-reranking, evaluation, serving — and I run a production website solo, which is
-where I learned that the interesting part of engineering is what you can
-measure. Most of what's below reports numbers, including the ones that came out
-against expectation.
+I build LLM systems end to end — retrieval, generation, tool servers, evaluation,
+serving — and I run a production AI studio's whole platform solo, which is where
+I learned that the interesting part of engineering is what you can measure. Most
+of what's below reports numbers, including the ones that came out against
+expectation. Every AI repo here runs on a clean checkout with no API key, and CI
+proves it on each push.
 
 ---
+
+### 🧩 [aistudio-mcp](https://github.com/shubhankar360/aistudio-mcp) — Gemini, Veo and TTS as tools Claude can call
+
+A zero-dependency Model Context Protocol server exposing Google AI Studio to
+Claude: Gemini text and vision, Nano Banana image generation and editing, Omni
+Flash and Veo 3.1 video with native audio, TTS voiceover, the Files API and live
+model discovery. JSON-RPC over stdio implemented directly, long renders that
+resume instead of timing out, and errors returned with a hint the model can act
+on (404 → re-list models, 429 → back off).
+
+Tested the way it runs: the suite spawns the real server, speaks JSON-RPC to it,
+and points it at a **local mock of Google's API**, so it can assert on the exact
+requests sent upstream — the key stays in a header, the echoed input image is
+never mistaken for the output, TTS PCM gets a byte-correct WAV header.
+
+`Node.js` · `MCP` · `Gemini API` · `Veo` · `12 end-to-end tests` · `CI on Node 18/20/22`
 
 ### 🔍 [hybrid-rag-eval](https://github.com/shubhankar360/hybrid-rag-eval) — does hybrid search actually beat BM25?
 
@@ -22,7 +39,7 @@ implemented directly rather than imported, so a bad result is attributable.
 The headline finding disagrees with the consensus: **fusion did not beat its best
 leg**, BM25 was the strongest single stack at Recall@3 *and* 40× faster, and
 reranking bought the best Recall@1 while losing the tail. The README explains
-why, and the split-by-query-wording table shows where. Runs offline, no API keys.
+why, and the split-by-query-wording table shows where.
 
 `Python` · `BM25` · `reciprocal rank fusion` · `cross-encoder reranking` · `27 tests`
 
@@ -39,7 +56,7 @@ sample corpus, a nonsense question scored **0.907** against a relevant question'
 **0.905**. Vocabulary coverage separates them cleanly (0.75–1.00 vs 0.00–0.25),
 and both query sets are checked in as tests.
 
-`Python` · `FastAPI` · `Streamlit` · `Anthropic API` · `65 tests`
+`Python` · `FastAPI` · `Streamlit` · `Anthropic API` · `sentence-transformers` · `65 tests`
 
 ### 🤖 [promptdesk](https://github.com/shubhankar360/promptdesk) — LLM support agent with RAG and escalation
 
@@ -48,7 +65,33 @@ chain-of-thought prompt, adapts tone, and uses a structured-output prompt to
 decide when it can't help — opening a ticket automatically. Retrieval written
 from scratch so it runs in demo mode with no API key.
 
-`Python` · `FastAPI` · `Claude / OpenAI` · `SQLite`
+`Python` · `FastAPI` · `Claude / OpenAI` · `Pydantic` · `SQLite`
+
+---
+
+### In production — [solquara.com](https://solquara.com)
+
+Solquara is an AI video-ad and automation studio. I designed, built and operate
+its entire platform as the only engineer:
+
+- **Accounts, plans and entitlements** — auth, four plan tiers, usage limits, a
+  one-time free sample keyed on user *and* canonical email, signed billing
+  webhooks with replay protection. Covered by **125 end-to-end checks** run in a
+  local WordPress sandbox (real PHP 8.3) and 112 against production, including
+  IDOR, session and login-throttling cases.
+- **Generative media pipeline** — keyframe-then-animate video generation that
+  measured **~4× cheaper** than the platform's built-in narrated-video workflow
+  for the same length of footage, and the MCP server above for driving Gemini and Veo from Claude.
+- **Instant ad-concept writer** — a visitor enters their business and trade and
+  reads a storyboarded 10-second ad in about 20 seconds; deterministic per input,
+  so every concept is a shareable link and becomes the brief for the free sample.
+- **Performance** — homepage **23 stylesheets → 2, 26 scripts → 1, HTML
+  123 kB → 36 kB**. Profiling found `backdrop-filter` eating ~80% of the frame
+  budget (6 fps → 55 fps once replaced). Effects gate on *measured* frame rate,
+  because spec sniffing provably excluded capable hardware.
+- **Regional pricing in 10 currencies** from one formula shared by build and
+  browser, detected from the time zone with no IP lookup, and audited so a price
+  can never exist only when a script succeeds.
 
 ---
 
@@ -60,21 +103,12 @@ from scratch so it runs in demo mode with no API key.
 | [Wine quality prediction](https://github.com/shubhankar360/Wine-quality-prediction) | 13 models benchmarked; R² 0.52 regression, 93% accuracy / 0.95 ROC-AUC classification |
 | [Movie recommendation system](https://github.com/shubhankar360/movies-recommendation-system) | Content-based recommender over TMDB 5000 with an NLP feature pipeline |
 
-### Beyond the repos — [solquara.com](https://solquara.com)
-
-I designed, built and operate the site as its only engineer. Measured on the
-homepage: **23 stylesheets → 2, 26 scripts → 1, HTML 123 kB → 36 kB**. Profiling a
-scroll-driven glass UI found `backdrop-filter` eating ~80% of the frame budget
-(22px blur → 6fps, none → 55fps); replacing it with a 2 kB build-time plate kept
-the look at full frame rate. The perf guard samples real frame rate for two
-seconds rather than sniffing device specs — because spec sniffing provably
-excluded capable hardware.
-
 ---
 
-**Toolkit** — Python · LangChain · LlamaIndex · FastAPI · Anthropic & OpenAI APIs ·
-ChromaDB / FAISS / Pinecone · sentence-transformers · RAGAS · scikit-learn ·
-pandas · NumPy · JavaScript / TypeScript · WebGL · Git
+**Toolkit** — Python · FastAPI · Pydantic · Anthropic Claude & OpenAI APIs · Gemini API ·
+Model Context Protocol · sentence-transformers · BM25 / dense / hybrid retrieval ·
+scikit-learn · pandas · NumPy · Node.js · JavaScript / TypeScript · PHP · WebGL · SQL ·
+GitHub Actions · Git
 
-**Currently** — deepening RAG evaluation and agent tooling, and open to remote
-LLM / RAG engineering roles on distributed teams.
+**Currently** — building agent tooling and retrieval evaluation, and open to remote
+AI / LLM engineering roles on distributed teams.

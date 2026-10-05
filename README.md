@@ -38,6 +38,17 @@ never writes new ones, and a test enforces that.
 
 `Python` · `SQLite` · `data pipeline` · `headless Chrome` · `67 tests` · `stdlib only`
 
+### [pg-hybrid-search](https://github.com/shubhankar360/pg-hybrid-search) — hybrid search inside Postgres, measured
+
+Full-text, BM25 and pgvector retrieval fused with reciprocal rank fusion in one SQL
+statement, benchmarked on BEIR SciFact. Hybrid with real BM25 reached **nDCG@10 0.712**
+against 0.643 for vectors alone, but hybrid on Postgres's built-in `ts_rank_cd` made
+results *worse* (0.597). pgvector's default `ef_search` silently returned **40 rows when
+asked for 100**. The same tests run on PGlite and on a real pgvector server in CI, which
+caught two portability bugs the in-process run could not.
+
+`TypeScript` · `PostgreSQL` · `pgvector` · `BM25` · `Docker` · `14 tests on 2 engines`
+
 ### [aistudio-mcp](https://github.com/shubhankar360/aistudio-mcp) — Gemini, Veo and TTS as tools Claude can call
 
 A zero-dependency Model Context Protocol server exposing Google AI Studio to
@@ -130,7 +141,7 @@ its entire platform as the only engineer:
 
 ---
 
-**Toolkit** — Python · FastAPI · Pydantic · Anthropic Claude & OpenAI APIs · Gemini API ·
+**Toolkit** — Python · TypeScript · FastAPI · Pydantic · PostgreSQL + pgvector · Docker · Anthropic Claude & OpenAI APIs · Gemini API ·
 Model Context Protocol · sentence-transformers · BM25 / dense / hybrid retrieval ·
 scikit-learn · pandas · NumPy · Node.js · JavaScript / TypeScript · PHP · WebGL · SQL ·
 GitHub Actions · Git

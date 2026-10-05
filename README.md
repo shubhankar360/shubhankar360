@@ -2,7 +2,7 @@
 
 **AI engineer — LLM applications, retrieval (RAG), agent tooling (MCP), and production systems that stay up.**
 
-Delhi, India (UTC+5:30) · open to remote work worldwide · [solquara.com](https://solquara.com) · shubhankar15august@gmail.com · [LinkedIn](https://www.linkedin.com/in/shubhankar-gupta-a73aa21a0)
+Delhi, India (UTC+5:30) · open to remote work worldwide · **[portfolio](https://shubhankar360.github.io)** · [solquara.com](https://solquara.com) · shubhankar15august@gmail.com · [LinkedIn](https://www.linkedin.com/in/shubhankar-gupta-a73aa21a0)
 
 I build LLM systems end to end — retrieval, generation, tool servers, evaluation,
 serving — and I run a production AI studio's whole platform solo, which is where
@@ -13,7 +13,32 @@ proves it on each push.
 
 ---
 
-### 🧩 [aistudio-mcp](https://github.com/shubhankar360/aistudio-mcp) — Gemini, Veo and TTS as tools Claude can call
+### [agentcheck](https://github.com/shubhankar360/agentcheck) — grade agents on what they did, not what they said
+
+An evaluation harness for tool-using LLM agents: a deterministic back-office world with
+seven tools and 36 tasks, graded on the **end state** of the world, a zero-tolerance
+**policy** check over the action log, and the facts in the answer. The environment
+enforces physics but not policy, so violations happen and get caught.
+
+Two findings: a transcript-only grader agreed with ground truth **worse than chance
+(κ = −0.40)** on an agent that skips checks, passing 16 runs that broke policy; and a
+96% pass@1 agent gets all eight attempts right on only **75%** of tasks (pass^8). The
+regression gate pairs an exact McNemar test with zero-tolerance policy checks, because
+each catches what the other misses.
+
+`Python` · `Anthropic SDK` · `pass^k` · `Cohen's κ` · `McNemar` · `22 tests` · `CI regenerates the report`
+
+### [job-radar](https://github.com/shubhankar360/job-radar) — which remote jobs can you actually get?
+
+Nine sources (Greenhouse, Ashby and Lever boards for 138 companies, Hacker News, five
+aggregators): **12,523 postings a run**, each with an eligibility verdict and a reason,
+and an itemised score whose parts provably add up. SQLite history flags reposted roles.
+CV tailoring is evidence-constrained: it selects and reorders facts from a profile and
+never writes new ones, and a test enforces that.
+
+`Python` · `SQLite` · `data pipeline` · `headless Chrome` · `67 tests` · `stdlib only`
+
+### [aistudio-mcp](https://github.com/shubhankar360/aistudio-mcp) — Gemini, Veo and TTS as tools Claude can call
 
 A zero-dependency Model Context Protocol server exposing Google AI Studio to
 Claude: Gemini text and vision, Nano Banana image generation and editing, Omni
@@ -29,7 +54,7 @@ never mistaken for the output, TTS PCM gets a byte-correct WAV header.
 
 `Node.js` · `MCP` · `Gemini API` · `Veo` · `12 end-to-end tests` · `CI on Node 18/20/22`
 
-### 🔍 [hybrid-rag-eval](https://github.com/shubhankar360/hybrid-rag-eval) — does hybrid search actually beat BM25?
+### [hybrid-rag-eval](https://github.com/shubhankar360/hybrid-rag-eval) — does hybrid search actually beat BM25?
 
 A reproducible benchmark for the retrieval half of RAG. Four stacks — BM25,
 dense, hybrid RRF, hybrid + reranking — over a labelled query set, scored on
@@ -43,7 +68,7 @@ why, and the split-by-query-wording table shows where.
 
 `Python` · `BM25` · `reciprocal rank fusion` · `cross-encoder reranking` · `27 tests`
 
-### 📄 [rag-document-qa](https://github.com/shubhankar360/rag-document-qa) — cited answers, or an honest refusal
+### [rag-document-qa](https://github.com/shubhankar360/rag-document-qa) — cited answers, or an honest refusal
 
 A full RAG service: recursive chunking with overlap and character offsets, vector
 retrieval, context assembly, and answers that cite the exact passage they came
@@ -58,7 +83,7 @@ and both query sets are checked in as tests.
 
 `Python` · `FastAPI` · `Streamlit` · `Anthropic API` · `sentence-transformers` · `65 tests`
 
-### 🤖 [promptdesk](https://github.com/shubhankar360/promptdesk) — LLM support agent with RAG and escalation
+### [promptdesk](https://github.com/shubhankar360/promptdesk) — LLM support agent with RAG and escalation
 
 Grounds every answer in a retrieved knowledge base, classifies sentiment with a
 chain-of-thought prompt, adapts tone, and uses a structured-output prompt to
@@ -110,5 +135,5 @@ Model Context Protocol · sentence-transformers · BM25 / dense / hybrid retriev
 scikit-learn · pandas · NumPy · Node.js · JavaScript / TypeScript · PHP · WebGL · SQL ·
 GitHub Actions · Git
 
-**Currently** — building agent tooling and retrieval evaluation, and open to remote
-AI / LLM engineering roles on distributed teams.
+**Currently** — building agent evaluation and retrieval tooling, and open to remote AI / LLM
+engineering roles on distributed teams (UK, EU, US, UAE; contractor or EOR). [Portfolio and CV →](https://shubhankar360.github.io)

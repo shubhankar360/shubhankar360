@@ -20,8 +20,8 @@ seven tools and 36 tasks, graded on the **end state** of the world, a zero-toler
 **policy** check over the action log, and the facts in the answer. The environment
 enforces physics but not policy, so violations happen and get caught.
 
-Two findings: a transcript-only grader agreed with ground truth **worse than chance
-(κ = −0.40)** on an agent that skips checks, passing 16 runs that broke policy; and a
+Two findings, on scripted reference agents with known behaviour: a transcript-only grader agreed
+with ground truth **worse than chance (κ = −0.40)** on an agent that skips checks, passing 16 runs that broke policy; and a
 96% pass@1 agent gets all eight attempts right on only **75%** of tasks (pass^8). The
 regression gate pairs an exact McNemar test with zero-tolerance policy checks, because
 each catches what the other misses.
@@ -68,11 +68,11 @@ never mistaken for the output, TTS PCM gets a byte-correct WAV header.
 ### [hybrid-rag-eval](https://github.com/shubhankar360/hybrid-rag-eval) — does hybrid search actually beat BM25?
 
 A reproducible benchmark for the retrieval half of RAG. Four stacks — BM25,
-dense, hybrid RRF, hybrid + reranking — over a labelled query set, scored on
+dense, hybrid RRF, hybrid + reranking (lexical by default) — over a labelled query set, scored on
 Recall@k, MRR and nDCG alongside latency. Okapi BM25 and reciprocal rank fusion
 implemented directly rather than imported, so a bad result is attributable.
 
-The headline finding disagrees with the consensus: **fusion did not beat its best
+On that small, vocabulary-consistent corpus (56 passages, 30 queries), **fusion did not beat its best
 leg**, BM25 was the strongest single stack at Recall@3 *and* 40× faster, and
 reranking bought the best Recall@1 while losing the tail. The README explains
 why, and the split-by-query-wording table shows where.

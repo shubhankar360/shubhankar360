@@ -13,6 +13,7 @@ Every AI repo below runs on a clean checkout without an API key, and CI checks t
 | [handoff-graph](https://github.com/shubhankar360/handoff-graph) | Where should an agent's rules live: in the prompt, in the graph, or in a guard before each tool call? | With a careful model it makes no difference. With an eager one, a guard node kept it at 40/40; without the guard and the verify gate it broke policy in 12 of 40 conversations. |
 | [agentcheck](https://github.com/shubhankar360/agentcheck) | How do you grade a tool-using agent? | A grader that only reads the transcript agreed with ground truth worse than chance (κ −0.40) and passed 16 runs that broke policy. |
 | [voice-latency](https://github.com/shubhankar360/voice-latency) | Where does the time go in one turn of a voice agent? | Mostly in deciding the caller has finished. A 300 or 500 ms silence threshold cut off every caller who paused mid-sentence; only 1200 ms caught them all. Speech recognition added about 25 ms. |
+| [lora-intents](https://github.com/shubhankar360/lora-intents) | How much labelled data does a LoRA adapter need to beat a frozen encoder? | On Banking77 it never did: logistic regression on frozen MiniLM embeddings matched or beat rank-8 LoRA at every data size (93.0% vs 92.5% on all 10,003 examples) and trained in minutes. |
 | [pg-hybrid-search](https://github.com/shubhankar360/pg-hybrid-search) | Does hybrid search help inside Postgres? | Yes with real BM25 (nDCG@10 0.712 vs 0.643 for vectors alone), but Postgres's built-in ranking made it worse, and pgvector quietly returned 40 rows when asked for 100. |
 | [rag-document-qa](https://github.com/shubhankar360/rag-document-qa) | Can a RAG service say "I don't know" honestly? | A similarity threshold couldn't tell an off-topic question from a real one (0.907 vs 0.905). Deploying it to Cloud Run also turned up a file-read hole in its own API, now closed. |
 | [aistudio-mcp](https://github.com/shubhankar360/aistudio-mcp) | Can Claude drive Gemini, Veo video and TTS as tools? | An MCP server with no dependencies, tested end to end against a local mock of Google's API. |
@@ -25,7 +26,7 @@ An AI video-ad and automation studio where I'm the only engineer. I built the ge
 
 ## Tools I use most
 
-Python, TypeScript, LangGraph, the Claude and Gemini APIs, MCP, FastAPI, PostgreSQL with pgvector, Vosk speech-to-text, Docker, Terraform, Google Cloud Run, GitHub Actions.
+Python, TypeScript, LangGraph, the Claude and Gemini APIs, MCP, FastAPI, PostgreSQL with pgvector, PyTorch and PEFT, Vosk speech-to-text, Docker, Terraform, Google Cloud Run, GitHub Actions.
 
 ## Get in touch
 
